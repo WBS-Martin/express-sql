@@ -29,9 +29,7 @@ app.post('/users/', (req, res) => {
     .query(
       `INSERT INTO users (first_name, last_name, age) VALUES ('${first_name}', '${last_name}', ${age})`
     )
-    .then((data) =>
-      res.status(202).json({ message: 'Successfully added user' })
-    )
+    .then(res.status(201).json({ message: 'Successfully added user' }))
     .catch((err) => res.json(err))
 })
 
@@ -50,7 +48,7 @@ app.delete('/users/:id', (req, res) => {
   const { id } = req.params
   pool
     .query(`DELETE FROM users WHERE id = ${id}`)
-    .then(res.status(202).json({ message: 'Successfully deleted user' }))
+    .then(res.status(204).json({ message: 'Successfully deleted user' }))
     .catch((err) => res.json(err))
 })
 
@@ -75,8 +73,7 @@ app.post('/orders', (req, res) => {
   const { price, user_id } = req.body
   pool
     .query(`INSERT INTO orders (price, user_id) VALUES (${price}, ${user_id})`)
-    .then((data) =>
-      res.status(202).json({ message: 'Successfully added order' })
+    .then(res.status(201).json({ message: 'Successfully added order' })
     )
     .catch((err) => res.json(err))
 })
@@ -96,7 +93,7 @@ app.delete('/orders/:id', (req, res) => {
   const { id } = req.params
   pool
     .query(`DELETE FROM orders WHERE id = ${id}`)
-    .then(res.status(202).json({ message: 'Successfully deleted order' }))
+    .then(res.status(204).json({ message: 'Successfully deleted order' }))
     .catch((err) => res.json(err))
 })
 
